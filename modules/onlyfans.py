@@ -1,4 +1,5 @@
 import requests
+import timezone
 from helpers.main_helper import clean_text, get_directory, json_request, reformat, format_directory, format_media_set, export_archive, format_image, check_for_dupe_file, setup_logger, log_error
 
 import os
@@ -324,7 +325,7 @@ def media_scraper(link, session, directory, username, api_type):
                     master_date, "%d-%m-%Y %H:%M:%S")
             else:
                 date_object = datetime.fromisoformat(date)
-                date_string = date_object.replace(tzinfo=None).strftime(
+                date_string = date_object.astimezone(tz=timezone.utc).strftime(
                     "%d-%m-%Y %H:%M:%S")
                 master_date = date_string
 
